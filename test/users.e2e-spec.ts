@@ -1,8 +1,8 @@
 import * as request from 'supertest';
 import { Test } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
-import { UsersModule } from 'src/users/users.module';
-import { UsersService } from 'src/users/service/users/users.service';
+import { UsersModule } from './../src/users/users.module';
+import { UsersService } from './../src/users/service/users/users.service';
 
 describe('Users', () => {
   let app: INestApplication;
@@ -19,7 +19,7 @@ describe('Users', () => {
     await app.init();
   });
 
-  it('/GET users', () => {
+  it('/users (GET)', () => {
     return request(app.getHttpServer())
       .get('/users')
       .expect(200)
