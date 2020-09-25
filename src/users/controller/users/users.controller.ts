@@ -7,10 +7,11 @@ import {
   Put,
   Delete,
 } from '@nestjs/common';
-import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiBody, ApiTags, ApiCreatedResponse, ApiNoContentResponse } from '@nestjs/swagger';
 import { UsersService } from 'src/users/service/users/users.service';
 import { User } from 'src/users/entity/user.entity';
 
+@ApiTags('users')
 @Controller('users')
 export class UsersController {
   constructor(private usersService: UsersService) {}
@@ -31,7 +32,8 @@ export class UsersController {
 
   @Post()
   @ApiOperation({ summary: 'Create user' })
-  @ApiResponse({ status: 201, description: 'Created', type: User })
+  @ApiCreatedResponse({ description: 'Created', type: User })
+  @ApiBody({ type: User })
   async createUser(@Body() user: User): Promise<User> {
     return this.usersService.createUser(user);
   }
@@ -45,7 +47,7 @@ export class UsersController {
 
   @Delete(':id')
   @ApiOperation({ description: 'Deleted' })
-  @ApiResponse({ status: 204, description: 'Delete user' })
+  @ApiNoContentResponse({ description: 'Delete user' })
   async deleteUser(@Param() id): Promise<void> {
     await this.usersService.deleteUser(id);
   }
