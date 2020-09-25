@@ -9,23 +9,19 @@ import { Connection } from 'typeorm';
     ConfigModule.forRoot({
       envFilePath: '.development.env',
     }),
-    TypeOrmModule.forRoot(
-      {
-        type: 'mysql',
-        host: process.env.DATABASE_HOST,
-        port: parseInt(process.env.DATABASE_PORT, 10),
-        username: process.env.DATABASE_USERNAME,
-        password: process.env.DATABASE_PASSWORD,
-        database: process.env.DATABASE_NAME,
-        entities: [
-          __dirname + '/**/entity/**.entity{.ts,.js}',
-        ],
-        synchronize: true,
-      },
-    ),
+    TypeOrmModule.forRoot({
+      type: 'mysql',
+      host: process.env.DATABASE_HOST,
+      port: parseInt(process.env.DATABASE_PORT, 10),
+      username: process.env.DATABASE_USERNAME,
+      password: process.env.DATABASE_PASSWORD,
+      database: process.env.DATABASE_NAME,
+      entities: [__dirname + '/**/entity/**.entity{.ts,.js}'],
+      synchronize: true,
+    }),
     UsersModule,
   ],
 })
-export class AppModule { 
-  constructor(private connection: Connection) { }
+export class AppModule {
+  constructor(private connection: Connection) {}
 }

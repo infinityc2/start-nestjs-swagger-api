@@ -16,7 +16,6 @@ describe('Users Controller', () => {
       jest.spyOn(usersService, 'findAll').mockImplementation(() => result);
 
       expect(await usersController.findAll()).toBe(result);
-    })
-  })
-
+    });
+  });
 });

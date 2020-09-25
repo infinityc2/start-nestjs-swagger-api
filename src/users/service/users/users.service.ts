@@ -5,34 +5,28 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class UsersService {
+  constructor(
+    @InjectRepository(User)
+    private readonly usersRepository: Repository<User>,
+  ) {}
 
-    constructor(
-        @InjectRepository(User) 
-        private readonly usersRepository: Repository<User>
-    ) {}
+  async findAll(): Promise<User[]> {
+    return await this.usersRepository.find();
+  }
 
-    async findAll(): Promise<User[]> {
-        return await this.usersRepository.find();
-    }
+  async findOne(id: number): Promise<User> {
+    return await this.usersRepository.findOne(id);
+  }
 
-    async findOne(id: number): Promise<User> {
-        return await this.usersRepository.findOne(id);
-    }
+  async createUser(user: User): Promise<User> {
+    return await this.usersRepository.save(user);
+  }
 
-    async createUser(user: User): Promise<User> {
-        return await this.usersRepository.save(user);
-    }
+  async updateUser(id: number, user: User): Promise<User | any> {
+    return await this.usersRepository.update(id, user);
+  }
 
-    async updateUser(id: number, user: User): Promise<User> {
-        const u = await this.usersRepository.findOne(id);
-        u.name = user.name;
-        u.email = user.email;
-        u.isActive = user.isActive;
-        return await this.usersRepository.save(u);
-    }
-
-    async deleteUser(id: number): Promise<void> {
-        await this.usersRepository.delete(id);
-    }
-
+  async deleteUser(id: number): Promise<void> {
+    await this.usersRepository.delete(id);
+  }
 }
