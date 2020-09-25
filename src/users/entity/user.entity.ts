@@ -7,7 +7,7 @@ export class User {
   id: number;
 
   @Column({ length: 25 })
-  @ApiProperty({ example: 'John Doe', description: 'Name of user' })
+  @ApiProperty({ example: 'John Doe', description: 'Name of user', type: String })
   name: string;
 
   @Column({ length: 50 })
@@ -15,6 +15,6 @@ export class User {
   email: string;
 
   @Column({ default: true })
-  @ApiProperty({ description: 'Enable user' })
+  @ApiProperty({ description: 'Enable user', default: true })
   isActive: boolean;
 }
